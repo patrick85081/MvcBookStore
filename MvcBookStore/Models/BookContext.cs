@@ -5,6 +5,8 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Web;
+using MvcBookStore.Utils;
+using Newtonsoft.Json;
 
 namespace MvcBookStore.Models
 {
@@ -101,6 +103,8 @@ namespace MvcBookStore.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Biography { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Book> Books { get; set; }
     }
+
 }
