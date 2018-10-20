@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MvcBookStore.Models;
 
 namespace MvcBookStore
 {
@@ -16,6 +17,10 @@ namespace MvcBookStore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var bookContext = new BookContext();
+            var books = bookContext.Books.ToList();
+            Console.WriteLine(books.Count);
         }
     }
 }
