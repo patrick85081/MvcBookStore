@@ -3,7 +3,7 @@
 @using MvcBookStore.Utils
 @using X.PagedList
 @using X.PagedList.Mvc
-@model IEnumerable<MvcBookStore.Models.Author>
+@model IEnumerable<AuthorViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -46,7 +46,7 @@
             </tr>
         </tbody>
     </table>
-    @Html.PagedListPager(ViewBag.PagedList as IPagedList, page => Url.Action("Index", queryOption.Page(page)));
+    @Html.PagedListPager(ViewBag.PagedList as IPagedList, page => Url.Action("Index", queryOption.Page(page)))
 </div>
 <!-- /ko -->
 <!-- ko if: authors.length === 0 -->

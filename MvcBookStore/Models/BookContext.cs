@@ -99,7 +99,6 @@ namespace MvcBookStore.Models
 
     public class Author
     {
-        [JsonProperty()]
         public int Id { get; set; }
         [Required]
         public string FirstName { get; set; }

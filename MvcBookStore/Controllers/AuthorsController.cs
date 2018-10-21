@@ -8,7 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
+using AutoMapper;
 using MvcBookStore.Models;
+using MvcBookStore.ViewModels;
 using X.PagedList;
 
 namespace MvcBookStore.Controllers
@@ -27,7 +29,10 @@ namespace MvcBookStore.Controllers
             ViewBag.QueryOption = queryOption;
             ViewBag.PagedList = authors;
 
-            return View(authors.ToList());
+            var authorViewModels = authors.Select(author => Mapper.Map<Author,AuthorViewModel>(author))
+                .ToList();
+
+            return View(authorViewModels);
         }
 
         // GET: Authors/Details/5
@@ -42,13 +47,13 @@ namespace MvcBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(Mapper.Map<Author,AuthorViewModel>(author));
         }
 
         // GET: Authors/Create
         public ActionResult Create()
         {
-            return View("Form", new Author());
+            return View("Form", new AuthorViewModel());
         }
 
         // POST: Authors/Create
@@ -65,7 +70,7 @@ namespace MvcBookStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Form", author);
+            return View("Form",Mapper.Map<Author,AuthorViewModel>( author));
         }
 
         // GET: Authors/Edit/5
@@ -80,7 +85,7 @@ namespace MvcBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            return View("Form", author);
+            return View("Form",Mapper.Map<Author,AuthorViewModel>( author));
         }
 
         // POST: Authors/Edit/5
@@ -96,7 +101,7 @@ namespace MvcBookStore.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View("Form", author);
+            return View("Form",Mapper.Map<Author,AuthorViewModel>( author));
         }
 
         // GET: Authors/Delete/5
@@ -111,7 +116,7 @@ namespace MvcBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(Mapper.Map<Author,AuthorViewModel>(author));
         }
 
         // POST: Authors/Delete/5

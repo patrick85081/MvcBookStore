@@ -17,6 +17,7 @@ namespace MvcBookStore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapperConfig.Init();
 
             var bookContext = new BookContext();
             var books = bookContext.Books.ToList();
