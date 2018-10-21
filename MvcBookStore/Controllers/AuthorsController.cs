@@ -20,12 +20,13 @@ namespace MvcBookStore.Controllers
         // GET: Authors
         public ActionResult Index([Form] QueryOption queryOption)
         {
-            var authors = db.Authors.OrderBy(queryOption.Sort)
-                .Skip((queryOption.CurrentPage - 1)*queryOption.PageSize)
-                .Take(queryOption.PageSize);
-            queryOption.TotalPages = (int)Math.Ceiling((double)db.Authors.Count() / queryOption.PageSize);
+            var authors = db.Authors
+                .OrderBy(queryOption.Sort)
+                .ToPagedList(queryOption.CurrentPage, queryOption.PageSize);
+
             ViewBag.QueryOption = queryOption;
-            ViewBag.PagedList = authors.ToPagedList();
+            ViewBag.PagedList = authors;
+
             return View(authors.ToList());
         }
 
