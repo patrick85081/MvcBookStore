@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using MvcBookStore.Models;
 
@@ -15,8 +17,10 @@ namespace MvcBookStore.Controllers
         private BookContext db = new BookContext();
 
         // GET: Authors
-        public ActionResult Index()
+        public ActionResult Index([Form] QueryOption queryOption)
         {
+            var authors = db.Authors.OrderBy(queryOption.Sort);
+            ViewBag.QueryOption = queryOption;
             return View(db.Authors.ToList());
         }
 

@@ -107,4 +107,16 @@ namespace MvcBookStore.Models
         public virtual ICollection<Book> Books { get; set; }
     }
 
+    public class QueryOption
+    {
+        public string SortField { get; set; } = "Id";
+        public SortOrder SortOrder { get; set; }
+        public string Sort => $"{SortField} {SortOrder}";
+    }
+
+    public enum SortOrder
+    {
+        ASC,
+        DESC
+    }
 }

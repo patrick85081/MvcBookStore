@@ -1,8 +1,10 @@
-﻿@using MvcBookStore.Utils
+﻿@using MvcBookStore.Models
+@using MvcBookStore.Utils
 @model IEnumerable<MvcBookStore.Models.Author>
 
 @{
     ViewBag.Title = "Index";
+    var queryOption = ViewBag.QueryOption as QueryOption;
 }
 
 <h2>Index</h2>
@@ -14,14 +16,11 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.BuildSortableLink(Html.DisplayNameFor(m => m.FirstName).ToHtmlString(), "Index", "FirstName", queryOption)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.BuildSortableLink(Html.DisplayNameFor(m => m.LastName).ToHtmlString(), "Index", "LastName", queryOption)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Biography)
-                </th>*@
             <th>Actions</th>
         </tr>
     </thead>
@@ -40,30 +39,10 @@
             </td>
         </tr>
     </tbody>
-    @*@foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Biography)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }*@
 </table>
 
 @section scripts {
     <script>
-        //var viewModel = new AuthorViewModel(@Html.Raw(Model.ToJson()));
         var viewModel = new AuthorViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(viewModel);
     </script>
