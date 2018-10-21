@@ -164,6 +164,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookContext.cs" />
+    <Compile Include="Models\QueryOption.cs" />
+    <Compile Include="Models\SortOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\JsonExtension.cs" />
   </ItemGroup>

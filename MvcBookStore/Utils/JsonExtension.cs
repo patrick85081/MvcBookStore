@@ -17,6 +17,15 @@ namespace MvcBookStore.Utils
         }
     }
 
+    public static class QueryOptionExtension
+    {
+        public static QueryOption Page(this QueryOption queryOption, int page)
+        {
+            var option = queryOption.Clone();
+            option.CurrentPage = page;
+            return option;
+        }
+    }
     public static class HtmlHelperExtension
     {
         public static HtmlString HtmlConvertToJson(this HtmlHelper htmlHelper, object model)

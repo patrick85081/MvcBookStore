@@ -1,5 +1,7 @@
 ﻿@using MvcBookStore.Models
 @using MvcBookStore.Utils
+@using X.PagedList
+@using X.PagedList.Mvc
 @model IEnumerable<MvcBookStore.Models.Author>
 
 @{
@@ -40,7 +42,7 @@
         </tr>
     </tbody>
 </table>
-
+@Html.PagedListPager(ViewBag.PagedList as IPagedList, page => Url.Action("Index", queryOption.Page(page)))
 @section scripts {
     <script>
         var viewModel = new AuthorViewModel(@Html.HtmlConvertToJson(Model));

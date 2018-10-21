@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
 using MvcBookStore.Models;
+using X.PagedList;
 
 namespace MvcBookStore.Controllers
 {
@@ -19,9 +20,13 @@ namespace MvcBookStore.Controllers
         // GET: Authors
         public ActionResult Index([Form] QueryOption queryOption)
         {
-            var authors = db.Authors.OrderBy(queryOption.Sort);
+            var authors = db.Authors.OrderBy(queryOption.Sort)
+                .Skip((queryOption.CurrentPage - 1)*queryOption.PageSize)
+                .Take(queryOption.PageSize);
+            queryOption.TotalPages = (int)Math.Ceiling((double)db.Authors.Count() / queryOption.PageSize);
             ViewBag.QueryOption = queryOption;
-            return View(db.Authors.ToList());
+            ViewBag.PagedList = authors.ToPagedList();
+            return View(authors.ToList());
         }
 
         // GET: Authors/Details/5
