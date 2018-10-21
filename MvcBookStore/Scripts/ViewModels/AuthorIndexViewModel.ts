@@ -1,9 +1,5 @@
-﻿class AuthorViewModel {
+﻿class AuthorIndexViewModel {
     constructor(public authors: Author[]) {
 
     }
-}
-
-class Author {
-
 }

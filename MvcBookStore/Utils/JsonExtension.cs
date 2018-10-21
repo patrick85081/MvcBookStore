@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcBookStore.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MvcBookStore.Utils
 {
@@ -13,7 +14,11 @@ namespace MvcBookStore.Utils
     {
         public static string ToJson(this object source)
         {
-            return JsonConvert.SerializeObject(source);
+            return JsonConvert.SerializeObject(source,new JsonSerializerSettings()
+            {
+                //ContractResolver = new CamelCasePropertyNamesContractResolver()
+                ContractResolver = new UnderlineSplitContractResolver()
+            });
         }
     }
 
@@ -32,6 +37,8 @@ namespace MvcBookStore.Utils
         {
             return new HtmlString(JsonConvert.SerializeObject(model, new JsonSerializerSettings()
             {
+                //ContractResolver = new UnderlineSplitContractResolver(),
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented
             }));

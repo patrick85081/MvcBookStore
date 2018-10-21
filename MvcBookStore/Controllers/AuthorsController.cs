@@ -48,7 +48,7 @@ namespace MvcBookStore.Controllers
         // GET: Authors/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Form", new Author());
         }
 
         // POST: Authors/Create
@@ -65,7 +65,7 @@ namespace MvcBookStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(author);
+            return View("Form", author);
         }
 
         // GET: Authors/Edit/5
@@ -80,7 +80,7 @@ namespace MvcBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View("Form", author);
         }
 
         // POST: Authors/Edit/5
@@ -96,7 +96,7 @@ namespace MvcBookStore.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(author);
+            return View("Form", author);
         }
 
         // GET: Authors/Delete/5
