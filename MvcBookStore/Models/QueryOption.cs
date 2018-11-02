@@ -10,6 +10,7 @@ namespace MvcBookStore.Models
         public string SortField { get; set; } = "Id";
         public SortOrder SortOrder { get; set; }
         public string Sort => $"{SortField} {SortOrder}";
+        public int TotalPages { get; set; }
 
         object ICloneable.Clone() => this.MemberwiseClone();
 

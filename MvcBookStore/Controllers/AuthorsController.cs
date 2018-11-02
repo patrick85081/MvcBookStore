@@ -26,13 +26,20 @@ namespace MvcBookStore.Controllers
                 .OrderBy(queryOption.Sort)
                 .ToPagedList(queryOption.CurrentPage, queryOption.PageSize);
 
+            queryOption.TotalPages = (int)Math.Ceiling((double)db.Authors.Count() / queryOption.PageSize);
+
             ViewBag.QueryOption = queryOption;
             ViewBag.PagedList = authors;
 
             var authorViewModels = authors.Select(author => Mapper.Map<Author,AuthorViewModel>(author))
                 .ToList();
 
-            return View(authorViewModels);
+            //return View(authorViewModels);
+            return View(new ResultList<AuthorViewModel>()
+            {
+                QueryOption = queryOption,
+                Result = authorViewModels,
+            });
         }
 
         // GET: Authors/Details/5

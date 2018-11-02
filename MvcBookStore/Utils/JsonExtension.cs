@@ -76,5 +76,39 @@ namespace MvcBookStore.Utils
             }
             return $"<span class=\"{classBuilder}\"></span>";
         }
+
+        public static MvcHtmlString BuildKnockoutSortableLink(this HtmlHelper htmlHelper,
+            string fieldName, string actionName, string sortField)
+        {
+            var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+
+            return new MvcHtmlString($@"
+<a href=""{urlHelper.Action(actionName)}"" 
+    data-bind=""click: pagingService.sortEntitiesBy"" 
+    data-sort-field=""{sortField}"" >
+    {fieldName}
+    <span data-bind=""css: pagingService.buildSortIcon('{sortField}')""></span>
+</a>
+");
+        }
+
+        public static MvcHtmlString BuildKnockoutNextPreviousLinks(
+        this HtmlHelper htmlHelper, string actionName)
+        {
+            var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+
+            return new MvcHtmlString($@"
+<nav>
+    <ul class=""pager"">
+        <li data-bind=""css: pagingService.buildPreviousClass()"">
+            <a href=""{urlHelper.Action(actionName)}"" data-bind=""click: pagingService.previousPage"">Previous</a>
+        </li>
+        <li data-bind=""css: pagingService.buildNextClass()"">
+            <a href=""{urlHelper.Action(actionName)}"" data-bind=""click: pagingService.nextPage"">Next</a>
+        </li>
+    </ul>
+</nav>
+");
+        }
     }
 }
